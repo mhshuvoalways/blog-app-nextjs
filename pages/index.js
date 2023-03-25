@@ -4,7 +4,6 @@ import Categories from "@/components/Categories";
 import PostCard from "@/components/PostCard";
 import Search from "@/components/Search";
 import TopPost from "@/components/TopPost";
-import data from "../data.json";
 
 const index = ({ posts, categories }) => {
   return (
@@ -28,16 +27,16 @@ const index = ({ posts, categories }) => {
 };
 
 export async function getStaticProps() {
-  // const res = await fetch("http://localhost:3000/api/posts");
-  // const posts = await res.json();
+  const res = await fetch("https://blog-app-mhs.vercel.app/api/posts");
+  const posts = await res.json();
 
-  // const cateRes = await fetch("http://localhost:3000/api/categories");
-  // const categories = await cateRes.json();
+  const cateRes = await fetch("https://blog-app-mhs.vercel.app/api/categories");
+  const categories = await cateRes.json();
 
   return {
     props: {
-      posts: data.posts,
-      categories: data.categories,
+      posts,
+      categories,
     },
   };
 }
