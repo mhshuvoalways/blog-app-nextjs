@@ -1,3 +1,4 @@
+import Link from "next/link";
 import moment from "moment";
 
 const TopPost = ({ posts }) => {
@@ -10,7 +11,12 @@ const TopPost = ({ posts }) => {
             <div className="flex gap-5">
               <p className="text-2xl font-extrabold">{index + 1}</p>
               <div>
-                <p className="cursor-pointer hover:underline">{post.title}</p>
+                <Link
+                  href={`/post/${post._id}`}
+                  className="hover:underline"
+                >
+                  {post.title}
+                </Link>
                 <p className="text-gray-400 text-sm mt-2 uppercase">
                   {post.category} - {moment(post.createdAt).format("LL")}
                 </p>

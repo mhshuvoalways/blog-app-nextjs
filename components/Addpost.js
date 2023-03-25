@@ -8,6 +8,7 @@ const AddPost = ({
   postId,
   reversePosts,
   loading,
+  categories,
 }) => {
   const [posts, setPosts] = useState({
     title: "",
@@ -151,10 +152,10 @@ const AddPost = ({
           value={posts.category}
           onChange={changeHandler}
         >
-          <option>Culture</option>
-          <option>Food</option>
-          <option>Culture</option>
-          <option>Culture</option>
+          <option>Default</option>
+          {categories.map((cat) => (
+            <option key={cat._id}>{cat.name}</option>
+          ))}
         </select>
       </div>
       <div className="w-40 h-40">

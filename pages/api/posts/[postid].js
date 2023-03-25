@@ -16,6 +16,17 @@ const handler = nc({
   },
 });
 
+handler.get(async (req, res) => {
+  const { postid } = req.query;
+  Posts.findOne({ _id: postid })
+    .then((responsive) => {
+      res.status(200).json(responsive);
+    })
+    .catch(() => {
+      serverError(res);
+    });
+});
+
 handler.delete(async (req, res) => {
   const session = await getSession({ req });
   if (session.user.role === "admin") {

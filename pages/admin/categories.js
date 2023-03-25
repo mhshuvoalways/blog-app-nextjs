@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import axios from "axios";
+import axios from "../../utils/Axios";
 import useClientSecure from "@/hooks/useClientSecure";
 import AdminHeader from "@/components/AdminHeader";
 import Footer from "@/components/Footer";
@@ -26,7 +26,7 @@ const Categories = () => {
     setLoading(true);
     const temp = [...categories];
     axios
-      .post("/api/categories", { name: cate.category })
+      .post("/categories", { name: cate.category })
       .then((responsive) => {
         temp.push(responsive.data);
         setCategories(temp);
@@ -42,7 +42,7 @@ const Categories = () => {
   const deleteHandler = (cateId) => {
     const temp = [...categories];
     axios
-      .delete(`/api/categories/${cateId}`)
+      .delete(`/categories/${cateId}`)
       .then(() => {
         const newCate = temp.filter((cat) => cat._id !== cateId);
         setCategories(newCate);
@@ -56,7 +56,7 @@ const Categories = () => {
     setLoading(true);
     const temp = [...categories];
     axios
-      .put(`/api/categories/${cateId}`, { name: cate.category })
+      .put(`/categories/${cateId}`, { name: cate.category })
       .then((responsive) => {
         const findInex = temp.findIndex((el) => el._id === cateId);
         temp[findInex] = responsive.data;
@@ -74,7 +74,7 @@ const Categories = () => {
     if (isAuth !== "loading") {
       isAuth === "authenticated"
         ? axios
-            .get("/api/categories")
+            .get("/categories")
             .then((responsive) => {
               setCategories(responsive.data);
             })

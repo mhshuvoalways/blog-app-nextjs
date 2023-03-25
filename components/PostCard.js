@@ -24,7 +24,7 @@ const PostCard = ({ posts }) => {
             </p>
             <div className="space-y-1">
               <Link
-                href="/post/postid"
+                href={`/post/${post._id}`}
                 className="hover:underline cursor-pointer"
               >
                 {post.title}

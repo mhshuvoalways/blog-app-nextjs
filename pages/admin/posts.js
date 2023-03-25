@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import axios from "axios";
+import axios from "../../utils/Axios";
 import useClientSecure from "@/hooks/useClientSecure";
 import AdminHeader from "@/components/AdminHeader";
 import Footer from "@/components/Footer";
@@ -13,6 +13,7 @@ const Posts = () => {
   const [openModal, setOpenModal] = useState(false);
   const [postId, setPostId] = useState("");
   const [loading, setLoading] = useState(false);
+  const [categories, setCategories] = useState([]);
 
   const router = useRouter();
 
@@ -27,7 +28,7 @@ const Posts = () => {
     setLoading(true);
     const temp = [...posts];
     axios
-      .post("/api/posts", post)
+      .post("/posts", post)
       .then((responsive) => {
         temp.push(responsive.data);
         setPosts(temp);
@@ -43,7 +44,7 @@ const Posts = () => {
   const deleteHandler = (postid) => {
     const temp = [...posts];
     axios
-      .delete(`/api/posts/${postid}`)
+      .delete(`/posts/${postid}`)
       .then(() => {
         const newPosts = temp.filter((post) => post._id !== postid);
         setPosts(newPosts);
@@ -57,7 +58,7 @@ const Posts = () => {
     setLoading(true);
     const temp = [...posts];
     axios
-      .put(`/api/posts/${postid}`, post)
+      .put(`/posts/${postid}`, post)
       .then((responsive) => {
         const findInex = temp.findIndex((el) => el._id === postid);
         temp[findInex] = responsive.data;
@@ -75,9 +76,24 @@ const Posts = () => {
     if (isAuth !== "loading") {
       isAuth === "authenticated"
         ? axios
-            .get("/api/posts")
+            .get("/posts")
             .then((responsive) => {
               setPosts(responsive.data);
+            })
+            .catch((err) => {
+              console.log(err);
+            })
+        : router.push("/admin/signin");
+    }
+  }, [isAuth, router]);
+
+  useEffect(() => {
+    if (isAuth !== "loading") {
+      isAuth === "authenticated"
+        ? axios
+            .get("/categories")
+            .then((responsive) => {
+              setCategories(responsive.data);
             })
             .catch((err) => {
               console.log(err);
@@ -100,6 +116,7 @@ const Posts = () => {
               postId={postId}
               reversePosts={reversePosts}
               loading={loading}
+              categories={categories}
             />
           </Modal>
         )}

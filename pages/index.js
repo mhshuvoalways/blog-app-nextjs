@@ -1,3 +1,4 @@
+import axios from "../utils/Axios";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Categories from "@/components/Categories";
@@ -26,17 +27,14 @@ const index = ({ posts, categories }) => {
   );
 };
 
-export async function getServerSideProps() {
-  const res = await fetch("https://blog-app-mhs.vercel.app/api/posts");
-  const posts = await res.json();
-
-  const cateRes = await fetch("https://blog-app-mhs.vercel.app/api/categories");
-  const categories = await cateRes.json();
+export async function getStaticProps() {
+  const posts = await axios.get("/posts");
+  const categories = await axios.get("/categories");
 
   return {
     props: {
-      posts,
-      categories,
+      posts: posts.data,
+      categories: categories.data,
     },
   };
 }
