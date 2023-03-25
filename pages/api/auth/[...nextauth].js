@@ -26,6 +26,10 @@ const authOptions = NextAuth({
       return session;
     },
   },
+  jwt: {
+    secret: process.env.NEXTAUTH_SECRET,
+  },
+  secret: process.env.JWT_SECRET,
   pages: {
     signIn: "/admin/signin",
   },
