@@ -26,7 +26,7 @@ const index = ({ posts, categories }) => {
   );
 };
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const res = await fetch("https://blog-app-mhs.vercel.app/api/posts");
   const posts = await res.json();
 
