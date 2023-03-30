@@ -1,5 +1,8 @@
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+import "react-quill/dist/quill.snow.css";
 import CrossIcon from "../public/cross.svg";
 
 const AddPost = ({
@@ -10,18 +13,27 @@ const AddPost = ({
   loading,
   categories,
 }) => {
+  const findPost = reversePosts.find((post) => post._id === postId);
+
   const [posts, setPosts] = useState({
-    title: "",
-    description: "",
-    category: "",
+    title: findPost?.title || "",
+    description: findPost?.description || "",
+    category: findPost?.category || "",
     image: null,
   });
-  const [imageUrl, setImageUrl] = useState("");
+  const [imageUrl, setImageUrl] = useState(findPost?.image.url || "");
 
   const changeHandler = (event) => {
     setPosts({
       ...posts,
       [event.target.name]: event.target.value,
+    });
+  };
+
+  const quillChangeHanlder = (value) => {
+    setPosts({
+      ...posts,
+      description: value,
     });
   };
 
@@ -48,18 +60,6 @@ const AddPost = ({
       addPostHandler(formData);
     }
   };
-
-  useEffect(() => {
-    const findPost = reversePosts.find((post) => post._id === postId);
-    if (findPost) {
-      setPosts({
-        title: findPost.title,
-        description: findPost.description,
-        category: findPost.category,
-      });
-      setImageUrl(findPost.image.url);
-    }
-  }, [postId, reversePosts]);
 
   const imageView = () => {
     if (imageUrl) {
@@ -136,12 +136,12 @@ const AddPost = ({
       </div>
       <div>
         <label>Description</label>
-        <textarea
-          placeholder="Enter description"
-          className="px-5 py-4 outline-0 rounded shadow-sm w-full h-48 focus:ring appearance bg-primary"
-          name="description"
+        <ReactQuill
+          theme="snow"
           value={posts.description}
-          onChange={changeHandler}
+          onChange={quillChangeHanlder}
+          placeholder="Enter description"
+          className="bg-primary h-56 pb-10"
         />
       </div>
       <div>

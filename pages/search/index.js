@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import axios from "../utils/Axios";
+import axios from "../../utils/Axios";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Categories from "@/components/Categories";
@@ -102,8 +102,11 @@ const Index = ({ posts, categories }) => {
   );
 };
 
-export async function getStaticProps() {
-  const posts = await axios.get("/posts");
+export async function getServerSideProps({ query }) {
+  const checkQuery = query.category
+    ? `/posts/?category=${query.category}`
+    : "/posts";
+  const posts = await axios.get(checkQuery);
   const categories = await axios.get("/categories");
   return {
     props: {

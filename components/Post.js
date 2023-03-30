@@ -1,4 +1,5 @@
 import Image from "next/image";
+import parse from "html-react-parser";
 import moment from "moment";
 import Post1 from "../public/posts/post(5).jpg";
 
@@ -18,7 +19,9 @@ const Post = ({ post }) => {
           {post.category} - {moment(post.createdAt).format("LL")}
         </p>
         <p className="mt-3 text-xl">{post.title}</p>
-        <p className="text-gray-400 mt-2">{post.descriptiton}</p>
+        <div className="text-gray-400 mt-2">
+          {parse(post.description)}
+        </div>
       </div>
     </div>
   );

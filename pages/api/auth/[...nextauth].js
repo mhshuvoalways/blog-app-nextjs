@@ -31,7 +31,7 @@ const authOptions = NextAuth({
   },
   secret: process.env.JWT_SECRET,
   pages: {
-    signIn: "/signin", // path start with page folder
+    signIn: "/admin/signin", // path start with page folder
   },
 });
 

@@ -1,10 +1,10 @@
 import moment from "moment/moment";
+import parse from "html-react-parser";
 import Image from "next/image";
 import Edit from "../public/edit.svg";
 import Trash from "../public/trash.svg";
 
 const AdminPosts = ({ deleteHandler, modalHandler, reversePosts }) => {
-
   return (
     <div className="overflow-x-scroll md:overflow-x-auto">
       <table className="w-full text-start mt-5">
@@ -34,7 +34,7 @@ const AdminPosts = ({ deleteHandler, modalHandler, reversePosts }) => {
                 />
               </td>
               <td className="border p-2">{post.title}</td>
-              <td className="border p-2">{post.description} </td>
+              <td className="border p-2">{parse(post.description)}</td>
               <td className="border p-2">{post.category}</td>
               <td className="border p-2">
                 {moment(post.createdAt).format("LL")}

@@ -67,13 +67,24 @@ handler.post(async (req, res) => {
 
 handler.get((req, res) => {
   dbConnect(res);
-  Posts.find()
-    .then((responsive) => {
-      res.status(200).json(responsive);
-    })
-    .catch(() => {
-      serverError(res);
-    });
+  const findQuery = req.query.category;
+  if (findQuery) {
+    Posts.find({ category: findQuery })
+      .then((responsive) => {
+        res.status(200).json(responsive);
+      })
+      .catch(() => {
+        serverError(res);
+      });
+  } else {
+    Posts.find()
+      .then((responsive) => {
+        res.status(200).json(responsive);
+      })
+      .catch(() => {
+        serverError(res);
+      });
+  }
 });
 
 export default handler;

@@ -1,10 +1,34 @@
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Post from "@/components/Post";
 import TopPost from "@/components/TopPost";
+import CommentAdd from "@/components/CommentAdd";
+import AllComments from "@/components/AllComments";
 import axios from "../../utils/Axios";
 
 const PostDetails = ({ post, posts }) => {
+  const [comments, setComments] = useState([]);
+  const router = useRouter();
+
+  useEffect(() => {
+    axios
+      .get(`/comment/${router.query.postid}`)
+      .then((res) => {
+        setComments(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [router.query.postid]);
+
+  const addCommentHandler = (comment) => {
+    const temp = [...comments];
+    temp.push(comment);
+    setComments(temp);
+  };
+
   return (
     <>
       <Header />
@@ -15,6 +39,11 @@ const PostDetails = ({ post, posts }) => {
           </div>
           <div className="w-full sm:w-9/12">
             <Post post={post} />
+            <CommentAdd
+              addCommentHandler={addCommentHandler}
+              postId={router.query.postid}
+            />
+            <AllComments comments={comments} />
           </div>
         </div>
       </div>
