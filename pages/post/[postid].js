@@ -6,8 +6,7 @@ import Post from "@/components/Post";
 import TopPost from "@/components/TopPost";
 import CommentAdd from "@/components/CommentAdd";
 import AllComments from "@/components/AllComments";
-import axios from "../../utils/Axios";
-import db from "../../db.json";
+import axios from "axios";
 
 const PostDetails = ({ post, posts }) => {
   const [comments, setComments] = useState([]);
@@ -15,7 +14,7 @@ const PostDetails = ({ post, posts }) => {
 
   useEffect(() => {
     axios
-      .get(`/comment/${router.query.postid}`)
+      .get(`https://blog-app-mhs.vercel.app/api/comment/${router.query.postid}`)
       .then((res) => {
         setComments(res.data);
       })
@@ -54,9 +53,8 @@ const PostDetails = ({ post, posts }) => {
 };
 
 export async function getStaticPaths() {
-  // const posts = await axios.get("/posts");
-  const posts = db.posts;
-  const paths = posts.map((el) => {
+  const posts = await axios.get("https://blog-app-mhs.vercel.app/api/posts");
+  const paths = posts.data.map((el) => {
     return {
       params: {
         postid: el._id,
@@ -72,18 +70,12 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context) {
   const { params } = context;
-  // const posts = await axios.get(`/posts`);
-  // const post = await axios.get(`/posts/${params.postid}`);
-
-  const posts = db.posts;
-  const post = db.posts.find(
-    (el) => el._id.toString() === params.postid.toString()
-  );
-
+  const posts = await axios.get(`https://blog-app-mhs.vercel.app/api/posts`);
+  const post = await axios.get(`https://blog-app-mhs.vercel.app/api/posts/${params.postid}`);
   return {
     props: {
-      post: post,
-      posts: posts,
+      post: post.data,
+      posts: posts.data,
     },
   };
 }
