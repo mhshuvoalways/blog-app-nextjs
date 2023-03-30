@@ -7,6 +7,7 @@ import TopPost from "@/components/TopPost";
 import CommentAdd from "@/components/CommentAdd";
 import AllComments from "@/components/AllComments";
 import axios from "../../utils/Axios";
+import db from "../../db.json";
 
 const PostDetails = ({ post, posts }) => {
   const [comments, setComments] = useState([]);
@@ -53,8 +54,9 @@ const PostDetails = ({ post, posts }) => {
 };
 
 export async function getStaticPaths() {
-  const posts = await axios.get("/posts");
-  const paths = posts.data.map((el) => {
+  // const posts = await axios.get("/posts");
+  const posts = db.posts;
+  const paths = posts.map((el) => {
     return {
       params: {
         postid: el._id,
@@ -70,12 +72,18 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context) {
   const { params } = context;
-  const posts = await axios.get(`/posts`);
-  const post = await axios.get(`/posts/${params.postid}`);
+  // const posts = await axios.get(`/posts`);
+  // const post = await axios.get(`/posts/${params.postid}`);
+
+  const posts = db.posts;
+  const post = db.posts.find(
+    (el) => el._id.toString() === params.postid.toString()
+  );
+
   return {
     props: {
-      post: post.data,
-      posts: posts.data,
+      post: post,
+      posts: posts,
     },
   };
 }
