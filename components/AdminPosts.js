@@ -1,5 +1,5 @@
 import moment from "moment/moment";
-import parse from "react-render-html";
+import parse from "html-react-parser";
 import Image from "next/image";
 import Edit from "../public/edit.svg";
 import Trash from "../public/trash.svg";

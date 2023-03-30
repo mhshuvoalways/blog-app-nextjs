@@ -1,5 +1,5 @@
 import Image from "next/image";
-import parse from "react-render-html";
+import parse from "html-react-parser";
 import Link from "next/link";
 import moment from "moment";
 
