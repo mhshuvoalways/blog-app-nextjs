@@ -14,7 +14,7 @@ const PostDetails = ({ post, posts }) => {
 
   useEffect(() => {
     axios
-      .get(`https://blog-app-mhs.vercel.app/api/comment/${router.query.postid}`)
+      .get(`https://daringpage.vercel.app/api/comment/${router.query.postid}`)
       .then((res) => {
         setComments(res.data);
       })
@@ -53,7 +53,7 @@ const PostDetails = ({ post, posts }) => {
 };
 
 export async function getStaticPaths() {
-  const posts = await axios.get("https://blog-app-mhs.vercel.app/api/posts");
+  const posts = await axios.get("https://daringpage.vercel.app/api/posts");
   const paths = posts.data.map((el) => {
     return {
       params: {
@@ -70,8 +70,8 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context) {
   const { params } = context;
-  const posts = await axios.get(`https://blog-app-mhs.vercel.app/api/posts`);
-  const post = await axios.get(`https://blog-app-mhs.vercel.app/api/posts/${params.postid}`);
+  const posts = await axios.get(`https://daringpage.vercel.app/api/posts`);
+  const post = await axios.get(`https://daringpage.vercel.app/api/posts/${params.postid}`);
   return {
     props: {
       post: post.data,
