@@ -8,7 +8,7 @@ const authOptions = NextAuth({
       async authorize(credentials, req) {
         const { email, password } = credentials;
         const user = { email, role: "admin" };
-        if ((email === "namnayit@gmail.com", password === "123456")) {
+        if (email === "namnayit@gmail.com" && password === "123456") {
           return user; // return must be an object
         } else {
           return null;
