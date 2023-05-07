@@ -14,7 +14,6 @@ Feature:
 Technology:
 • Nextjs
 • Next-auth
-• Reactjs
 • Tailwind
 • Expressjs
 • MongoDB
