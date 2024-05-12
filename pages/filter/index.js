@@ -3,7 +3,6 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import PostCard from "@/components/PostCard";
 import Search from "@/components/Search";
-import TopPost from "@/components/TopPost";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import axios from "../../utils/Axios";
