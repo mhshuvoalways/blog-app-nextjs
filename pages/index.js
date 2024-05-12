@@ -97,7 +97,7 @@ const Index = ({ posts, categories }) => {
 export async function getStaticProps() {
   const posts = await axios.get("/posts");
   const categories = await axios.get("/categories");
-console.log(posts);
+
   return {
     props: {
       posts: posts.data,

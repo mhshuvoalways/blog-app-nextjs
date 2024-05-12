@@ -22,7 +22,7 @@ const Post = ({ post }) => {
           {post.category} - {moment(post.createdAt).format("LL")}
         </p>
 
-        <div className="text-gray-400 mt-3">{parse(post.description)}</div>
+        <div className="text-gray-500 mt-3">{parse(post.description)}</div>
       </div>
     </div>
   );
