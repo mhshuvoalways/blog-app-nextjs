@@ -8,8 +8,11 @@ const authOptions = NextAuth({
       async authorize(credentials, req) {
         const { email, password } = credentials;
         const user = { email, role: "admin" };
-        if (email === "namnayit@gmail.com" && password === "123456") {
-          return user; // return must be an object
+        if (
+          email === process.env.ADMIN_EMAIL &&
+          password === process.env.ADMIN_PASSWORD
+        ) {
+          return user;
         } else {
           return null;
         }
@@ -31,7 +34,7 @@ const authOptions = NextAuth({
   },
   secret: process.env.JWT_SECRET,
   pages: {
-    signIn: "/admin/signin", // path start with page folder
+    signIn: "/admin/signin",
   },
 });
 
