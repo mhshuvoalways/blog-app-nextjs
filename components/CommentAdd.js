@@ -44,7 +44,7 @@ const Comment = ({ addCommentHandler, postId }) => {
       className="bg-secondary p-10 shadow-sm rounded-sm space-y-5 mt-10 sm:mt-20"
     >
       <p className="text-xl font-semibold">Leave a comment on this post</p>
-      <div className="flex gap-5 justify-between flex-wrap">
+      <div className="flex gap-5 flex-wrap">
         <div>
           <label>Name*</label>
           <input

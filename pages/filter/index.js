@@ -1,14 +1,17 @@
-import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
-import axios from "../../utils/Axios";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import Categories from "@/components/Categories";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 import PostCard from "@/components/PostCard";
 import Search from "@/components/Search";
 import TopPost from "@/components/TopPost";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import axios from "../../utils/Axios";
 
-const Index = ({ posts, categories }) => {
+const Index = () => {
+  const [posts, setPosts] = useState([]);
+  const [categories, setCategories] = useState([]);
+
   const [query, setQuery] = useState({
     category: "",
     search: "",
@@ -48,23 +51,15 @@ const Index = ({ posts, categories }) => {
   };
 
   const routerPush = (category, search) => {
+    let url = "/";
     if (category && search) {
-      router.push(`/search/?category=${category}&search=${search}`, undefined, {
-        shallow: false,
-      });
+      url = `/filter/?category=${category}&search=${search}`;
     } else if (category) {
-      router.push(`/search/?category=${category}`, undefined, {
-        shallow: false,
-      });
+      url = `/filter/?category=${category}`;
     } else if (search) {
-      router.push(`/search/?search=${search}`, undefined, {
-        shallow: false,
-      });
-    } else {
-      router.push(`/`, undefined, {
-        shallow: false,
-      });
+      url = `/filter/?search=${search}`;
     }
+    router.push(url, undefined, { shallow: false });
   };
 
   useEffect(() => {
@@ -74,10 +69,23 @@ const Index = ({ posts, categories }) => {
     });
   }, [router.query.category, router.query.search]);
 
+  useEffect(() => {
+    async function selfcall() {
+      const checkQuery = query.category
+        ? `/posts/?category=${query.category}`
+        : "/posts";
+      const posts = await axios.get(checkQuery);
+      const categories = await axios.get("/categories");
+      setPosts(posts.data);
+      setCategories(categories.data);
+    }
+    selfcall();
+  }, [query.category]);
+
   return (
     <>
       <Header />
-      <div className="w-10/12 mx-auto my-10">
+      <div className="w-10/12 mx-auto my-10 container">
         <div className="flex justify-between gap-10 sm:flex-nowrap flex-wrap">
           <div className="w-full sm:w-3/12 mx-auto">
             <Search search={query.search} onSearchHanlder={onSearchHanlder} />
@@ -86,7 +94,6 @@ const Index = ({ posts, categories }) => {
               selectHandler={selectHandler}
               selectCat={query.category}
             />
-            <TopPost posts={posts} />
           </div>
           <div className="w-full sm:w-9/12 mx-auto">
             <PostCard
@@ -101,19 +108,5 @@ const Index = ({ posts, categories }) => {
     </>
   );
 };
-
-export async function getServerSideProps({ query }) {
-  const checkQuery = query.category
-    ? `/posts/?category=${query.category}`
-    : "/posts";
-  const posts = await axios.get(checkQuery);
-  const categories = await axios.get("/categories");
-  return {
-    props: {
-      posts: posts.data,
-      categories: categories.data,
-    },
-  };
-}
 
 export default Index;

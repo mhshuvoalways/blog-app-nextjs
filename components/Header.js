@@ -3,7 +3,7 @@ import Link from "next/link";
 const Header = () => {
   return (
     <div className="bg-secondary">
-      <div className="w-10/12 m-auto gap-5 flex justify-between items-center py-6">
+      <div className="w-10/12 m-auto gap-5 flex justify-between items-center py-6 container">
         <Link href="/" className="font-bold text-xl">
           DaringPage
         </Link>

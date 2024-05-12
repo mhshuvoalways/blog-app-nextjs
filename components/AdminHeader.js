@@ -1,14 +1,14 @@
+import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { useSession, signIn, signOut } from "next-auth/react";
 
 const Header = () => {
   const { data: session, status } = useSession();
 
   return (
     <div className="bg-secondary">
-      <div className="w-10/12 m-auto gap-5 flex justify-between items-center py-6">
+      <div className="w-10/12 m-auto gap-5 flex justify-between items-center py-6 container">
         <Link href="/" className="font-bold text-xl">
-          Logo
+          DaringPage
         </Link>
         {session?.user.role === "admin" && status === "authenticated" ? (
           <menu className="flex gap-5 sm:gap-10">

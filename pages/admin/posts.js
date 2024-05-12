@@ -107,7 +107,7 @@ const Posts = () => {
   return (
     <>
       <AdminHeader />
-      <div className="my-10 w-10/12 mx-auto bg-secondary p-10 shadow-sm rounded-sm">
+      <div className="my-10 w-10/12 mx-auto bg-secondary p-10 shadow-sm rounded-sm container">
         {openModal && (
           <Modal modalHandler={modalHandler}>
             <AddPost

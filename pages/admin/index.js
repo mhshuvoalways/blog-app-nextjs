@@ -17,7 +17,7 @@ const Index = () => {
   return (
     <>
       <AdminHeader />
-      <div className="w-10/12 mx-auto">
+      <div className="w-10/12 mx-auto container">
         <p className="text-xl font-semibold flex justify-center items-center h-32 sm:h-96">
           Welcome to Dashboard
         </p>

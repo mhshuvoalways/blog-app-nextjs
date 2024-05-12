@@ -31,7 +31,7 @@ const SignIn = () => {
 
   return (
     <form className="h-screen flex justify-center items-center" onSubmit={onSubmit}>
-      <div className="w-10/12 sm:w-6/12 mx-auto bg-secondary p-10 shadow-sm rounded-sm space-y-5">
+      <div className="w-10/12 sm:w-6/12 mx-auto bg-secondary p-10 shadow-sm rounded-sm space-y-5 container">
         <p className="text-xl font-semibold">Login</p>
         <div>
           <label>Email</label>

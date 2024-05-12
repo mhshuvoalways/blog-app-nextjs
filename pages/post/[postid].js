@@ -32,7 +32,7 @@ const PostDetails = ({ post, posts }) => {
   return (
     <>
       <Header />
-      <div className="w-10/12 mx-auto my-10">
+      <div className="w-10/12 mx-auto my-10 container">
         <div className="flex justify-between gap-10 sm:flex-nowrap flex-wrap">
           <div className="w-full sm:w-3/12">
             <TopPost posts={posts} />

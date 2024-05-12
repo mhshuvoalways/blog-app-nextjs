@@ -6,12 +6,12 @@ import Twitter from "../public/social/twitter.svg";
 const Footer = () => {
   return (
     <div className="bg-secondary py-16">
-      <div className="w-10/12 mx-auto flex justify-center sm:justify-between gap-10 flex-wrap">
-        <div className="w-full sm:w-3/12">
+      <div className="w-10/12 mx-auto grid grid-cols-3 gap-5 container justify-items-center">
+        <div className="w-full mx-auto">
           <p className="font-bold text-xl">Logo</p>
           <p className="mt-2">© All right reserverd MH Shuvo</p>
         </div>
-        <div className="w-full sm:w-5/12">
+        <div className="w-full mx-auto">
           <p className="text-xl font-semibold">About us</p>
           <p className="mt-2 text-justify">
             Ut excepteur aliqua id do ut fugiat et nostrud. Aliquip pariatur
@@ -23,7 +23,7 @@ const Footer = () => {
             incididunt.
           </p>
         </div>
-        <div className="w-full sm:w-3/12">
+        <div className="w-full mx-auto">
           <p className="text-xl font-semibold">Contact us</p>
           <div className="mt-2">
             <p>mlhnshuvo@gmail.com</p>

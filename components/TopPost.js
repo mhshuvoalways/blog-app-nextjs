@@ -13,7 +13,7 @@ const TopPost = ({ posts }) => {
             <div className="flex gap-5">
               <p className="text-2xl font-extrabold">{index + 1}</p>
               <div>
-                <Link href={`/post/${post._id}`} className="hover:underline">
+                <Link href={`/post/${post._id}`} className="hover:underline line-clamp-2">
                   {post.title}
                 </Link>
                 <p className="text-gray-400 text-sm mt-2 uppercase">
