@@ -20,4 +20,4 @@ Technology:
 • Vercel
 ```
 
-<img src="https://www.mhshuvoalways.xyz/projects/daringpage.png />
+<img src="https://www.mhshuvoalways.xyz/projects/daringpage.png" />
