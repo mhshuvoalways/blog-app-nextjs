@@ -26,8 +26,8 @@ const Footer = () => {
         <div className="w-full mx-auto">
           <p className="text-xl font-semibold">Contact us</p>
           <div className="mt-2">
-            <p>mlhnshuvo@gmail.com</p>
-            <p>+88-01712-892969</p>
+            <p>mhshuvoalways@gmail.com</p>
+            <p>+8801712345678</p>
           </div>
           <div className="flex gap-5 mt-5">
             <Image
